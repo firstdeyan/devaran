@@ -1,0 +1,57 @@
+[
+  {
+    "id": "wpap-1",
+    "title": "WPAP Portrait",
+    "category": "wpap",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764180664/yhbcw5zazbdt9luiquh5.png",
+    "description": "Bold geometric portrait in WPAP style"
+  },
+  {
+    "id": "lineart-1",
+    "title": "Minimal Line Portrait",
+    "category": "lineart",
+    "image": "https://picsum.photos/400/300?random=102",
+    "description": "Clean minimal line art portrait"
+  },
+  {
+    "id": "sketch-1",
+    "title": "Realistic Pencil Sketch",
+    "category": "sketch",
+    "image": "https://picsum.photos/400/300?random=103",
+    "description": "Detailed pencil sketch with shading"
+  },
+  {
+    "id": "gouache-1",
+    "title": "Soft Gouache Portrait",
+    "category": "gouache",
+    "image": "https://picsum.photos/400/300?random=104",
+    "description": "Watercolor soft gouache portrait"
+  },
+  {
+    "id": "poster-1",
+    "title": "Showa Poster",
+    "category": "poster",
+    "image": "https://picsum.photos/400/300?random=105",
+    "description": "Vintage Japanese poster style"
+  },
+  {
+    "id": "warhol-1",
+    "title": "Warhol Color Blocks",
+    "category": "warhol",
+    "image": "https://picsum.photos/400/300?random=106",
+    "description": "Pop art inspired by Warhol"
+  },{
+    "id": "warhol-1",
+    "title": "Warhol Color Blocks",
+    "category": "charcoal",
+    "image": "https://picsum.photos/400/300?random=106",
+    "description": "Pop art inspired by Warhol"
+  },
+  {
+    "id": "charcoal-1",
+    "title": "Charcoal Shade",
+    "category": "charcoal",
+    "image": "https://picsum.photos/400/300?random=107",
+    "description": "Deep textured charcoal portrait"
+  }
+]
