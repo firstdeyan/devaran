@@ -1,33 +1,32 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs/promises';
-import path from 'path';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
+import { createClient } from '@netlify/blobs';
 
 // ambil env dari SvelteKit
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET,
-  GMAIL_USER, GMAIL_APP_PASSWORD, GMAIL_RECEIVER
+  GMAIL_USER,
+  GMAIL_APP_PASSWORD,
+  GMAIL_RECEIVER
 } from '$env/static/private';
 
-const DATA_FILE = path.resolve('src/lib/data/requests.json');
+const client = createClient();
+const bucket = client.bucket('requests'); // bucket khusus untuk requests
 
+/** Utility: baca data request dari Blobs */
 async function readRequests() {
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf-8');
-    return JSON.parse(raw || '[]');
-  } catch {
-    return [];
-  }
+  const data = await bucket.get('requests.json');
+  if (!data) return [];
+  return JSON.parse(await data.text());
 }
 
+/** Utility: tulis data request ke Blobs */
 async function writeRequests(requests) {
-  await fs.writeFile(DATA_FILE, JSON.stringify(requests, null, 2), 'utf-8');
+  await bucket.setJSON('requests.json', requests);
 }
 
 /** Upload ke Cloudinary */
@@ -56,11 +55,10 @@ async function uploadToCloudinary(fileBuffer, filename) {
   }
 
   const data = await res.json();
-  console.log('Cloudinary response:', data);
-
   return data.secure_url || data.url || null;
 }
 
+/** Kirim email notifikasi */
 async function sendEmail(req) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -85,11 +83,13 @@ async function sendEmail(req) {
   }
 }
 
+/** GET /api/request */
 export async function GET() {
   const requests = await readRequests();
   return json({ requests });
 }
 
+/** POST /api/request */
 export async function POST({ request }) {
   const contentType = request.headers.get('content-type') || '';
   if (!contentType.includes('multipart/form-data')) {
