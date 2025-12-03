@@ -1,23 +1,27 @@
 <script>
   import artworks from "$lib/data/art.json";
+  import categories from "$lib/data/categories.json";
+
   export let params;
 
   // mapping slug ke nama kategori
-  const categories = {
-    wpap: "WPAP (Wedha’s Pop Art)",
-    lineart: "Line Art Minimalis",
-    sketch: "Realistic Pencil Sketch",
-    gouache: "Gouache / Watercolor Soft Portrait",
-    poster: "Vintage Japanese Poster (Showa era)",
-    warhol: "Warhol Pop Art",
-    charcoal: "Charcoal Portrait",
-  };
+  // const categories = {
+  //   wpap: "WPAP (Wedha’s Pop Art)",
+  //   lineart: "Line Art Minimalis",
+  //   sketch: "Realistic Pencil Sketch",
+  //   gouache: "Gouache / Watercolor Soft Portrait",
+  //   poster: "Vintage Japanese Poster (Showa era)",
+  //   warhol: "Warhol Pop Art",
+  //   charcoal: "Charcoal Portrait",
+  // };
 
   const slug = params.category;
   const title = categories[slug] || slug;
 
   // filter karya sesuai kategori
-  const filtered = artworks.filter((a) => a.category === slug);
+  const filtered = artworks.filter(
+    (a) => a.category === slug && a.isActive === true
+  );
 
   let selected = null;
   let currentIndex = 0;
@@ -106,7 +110,7 @@
     background: #1c1c22;
     border-radius: 16px;
     max-width: 90%;
-    max-height: 90%;
+    max-height: 100%;
     width: 700px;
     display: flex;
     flex-direction: column;

@@ -1,3 +1,36 @@
+<script>
+  import { onMount } from "svelte";
+  import categories from "$lib/data/categories.json";
+
+  let artworks = [];
+  let latestArtworks = [];
+  let categoryPreviews = [];
+  let token = "mysecret123";
+
+  async function loadArt() {
+    const res = await fetch("/api/art", {
+      headers: { "x-secret-token": token },
+    });
+    const data = await res.json();
+
+    // urutkan berdasarkan createdAt terbaru
+    artworks = data.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+    // ambil 6 terbaru yang aktif
+    latestArtworks = artworks.filter((a) => a.isActive).slice(0, 6);
+
+    // ambil 1 artwork per kategori
+    categoryPreviews = Object.entries(categories).map(([slug, name]) => {
+      const art = artworks.find((a) => a.category === slug && a.isActive);
+      return { slug, name, art };
+    });
+  }
+
+  onMount(loadArt);
+</script>
+
 <section class="hero">
   <div class="container hero-wrap">
     <div>
@@ -16,43 +49,11 @@
 
     <div class="hero-card">
       <div class="hero-grid">
-        <!-- preview images tetap -->
-        <div class="preview">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212422/1764131645649_gfspwn.jpg"
-            alt="Artwork preview 1"
-          />
-        </div>
-        <div class="preview">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212423/1764132510893_1_ojvf5y.jpg"
-            alt="Artwork preview 2"
-          />
-        </div>
-        <div class="preview">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212423/1764133266983_1_qc9zwo.jpg"
-            alt="Artwork preview 3"
-          />
-        </div>
-        <div class="preview">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212425/1764132782897_1_l6shxi.jpg"
-            alt="Artwork preview 4"
-          />
-        </div>
-        <div class="preview">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212431/1764133084541_1_gu7liv.jpg"
-            alt="Artwork preview 5"
-          />
-        </div>
-        <div class="preview">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132726528_1_rdar0w.jpg"
-            alt="Artwork preview 6"
-          />
-        </div>
+        {#each latestArtworks as art}
+          <div class="preview">
+            <img src={art.image} alt={art.title} />
+          </div>
+        {/each}
       </div>
     </div>
   </div>
@@ -71,96 +72,32 @@
     </div>
 
     <div class="grid">
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132536860_1_yybwov.jpg"
-            alt="WPAP preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">WPAP (Wedha’s Pop Art)</div>
-          <a class="btn btn-primary" href="/gallery/wpap">View WPAP</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764214900/unnamed_2_lf4rlm.jpg"
-            alt="Line Art preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Line Art Minimalis</div>
-          <a class="btn btn-primary" href="/gallery/lineart">View Line Art</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212423/1764132510893_1_ojvf5y.jpg"
-            alt="Sketch preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Realistic Pencil Sketch</div>
-          <a class="btn btn-primary" href="/gallery/sketch">View Sketch</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132726528_1_rdar0w.jpg"
-            alt="Gouache preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Gouache / Watercolor</div>
-          <a class="btn btn-primary" href="/gallery/gouache">View Gouache</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212423/1764133266983_1_qc9zwo.jpg"
-            alt="Poster preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Vintage Japanese Poster</div>
-          <a class="btn btn-primary" href="/gallery/poster">View Poster</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132652877_1_zhd7hz.jpg"
-            alt="Warhol preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Warhol Pop Art</div>
-          <a class="btn btn-primary" href="/gallery/warhol">View Warhol</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-media">
-          <img
-            src="https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212431/1764133084541_1_gu7liv.jpg"
-            alt="Charcoal preview"
-          />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Charcoal Portrait</div>
-          <a class="btn btn-primary" href="/gallery/charcoal">View Charcoal</a>
-        </div>
-      </article>
+      {#each categoryPreviews as cat}
+        {#if cat.art}
+          <article class="card">
+            <div class="card-media">
+              <img src={cat.art.image} alt={cat.name + " preview"} />
+            </div>
+            <div class="card-body">
+              <div class="card-title">{cat.name}</div>
+              <a class="btn btn-primary" href={"/gallery/" + cat.slug}>
+                View
+              </a>
+            </div>
+          </article>
+        {:else}
+          <!-- fallback kalau belum ada artwork untuk kategori -->
+          <article class="card">
+            <div class="card-media placeholder"></div>
+            <div class="card-body">
+              <div class="card-title">{cat.name}</div>
+              <a class="btn btn-primary" href={"/gallery/" + cat.slug}>
+                View
+              </a>
+            </div>
+          </article>
+        {/if}
+      {/each}
     </div>
   </div>
 </section>
@@ -201,3 +138,28 @@
     </div>
   </div>
 </section>
+
+<!-- <style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+  .preview img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .card-media img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+  .card-media.placeholder {
+    background: #2a2a33;
+    height: 180px;
+    border-radius: 8px 8px 0 0;
+  }
+</style> -->

@@ -1,4 +1,6 @@
 <script>
+  import categories from "$lib/data/categories.json";
+
   let name = "";
   let email = "";
   let social = "";
@@ -8,16 +10,16 @@
   let submitting = false;
   let showPopup = false;
 
-  const styles = [
-    "WPAP (Wedha’s Pop Art)",
-    "Line Art Minimalis",
-    "Realistic Pencil Sketch",
-    "Gouache / Watercolor Soft Portrait",
-    "Vintage Japanese Poster (Showa era)",
-    "Warhol Pop Art",
-    "Charcoal Portrait",
-  ];
-
+  // const styles = [
+  //   "WPAP (Wedha’s Pop Art)",
+  //   "Line Art Minimalis",
+  //   "Realistic Pencil Sketch",
+  //   "Gouache / Watercolor Soft Portrait",
+  //   "Vintage Japanese Poster (Showa era)",
+  //   "Warhol Pop Art",
+  //   "Charcoal Portrait",
+  // ];
+  let styles = Object.values(categories);
   async function submitRequest(e) {
     e.preventDefault();
     submitting = true;

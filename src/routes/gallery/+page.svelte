@@ -1,15 +1,16 @@
 <script>
   import artworks from "$lib/data/art.json";
+  import categories from "$lib/data/categories.json";
 
-  const categories = {
-    wpap: "WPAP (Wedha’s Pop Art)",
-    lineart: "Line Art Minimalis",
-    sketch: "Realistic Pencil Sketch",
-    gouache: "Gouache / Watercolor Soft Portrait",
-    poster: "Vintage Japanese Poster (Showa era)",
-    warhol: "Warhol Pop Art",
-    charcoal: "Charcoal Portrait",
-  };
+  // const categories = {
+  //   wpap: "WPAP (Wedha’s Pop Art)",
+  //   lineart: "Line Art Minimalis",
+  //   sketch: "Realistic Pencil Sketch",
+  //   gouache: "Gouache / Watercolor Soft Portrait",
+  //   poster: "Vintage Japanese Poster (Showa era)",
+  //   warhol: "Warhol Pop Art",
+  //   charcoal: "Charcoal Portrait",
+  // };
 
   let selected = null; // karya yang dipilih untuk modal
   let currentIndex = 0; // index karya dalam kategori
@@ -28,13 +29,17 @@
   }
 
   function nextArt() {
-    const filtered = artworks.filter((a) => a.category === currentCategory);
+    const filtered = artworks.filter(
+      (a) => a.category === currentCategory && a.isActive === true
+    );
     currentIndex = (currentIndex + 1) % filtered.length;
     selected = filtered[currentIndex];
   }
 
   function prevArt() {
-    const filtered = artworks.filter((a) => a.category === currentCategory);
+    const filtered = artworks.filter(
+      (a) => a.category === currentCategory && a.isActive === true
+    );
     currentIndex = (currentIndex - 1 + filtered.length) % filtered.length;
     selected = filtered[currentIndex];
   }
@@ -53,7 +58,7 @@
 
       <div class="grid">
         {#each artworks
-          .filter((a) => a.category === slug)
+          .filter((a) => a.category === slug && a.isActive === true)
           .slice(0, 4) as art, i}
           <div class="card" on:click={() => openModal(art, i, slug)}>
             <div class="card-media">
@@ -108,7 +113,7 @@
     background: #1c1c22;
     border-radius: 16px;
     max-width: 90%;
-    max-height: 90%;
+    max-height: 100%;
     width: 700px;
     display: flex;
     flex-direction: column;

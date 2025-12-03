@@ -13,6 +13,12 @@
 
     <div class="nav-links">
       <a
+        href="/"
+        class={`nav-link ${$page.url.pathname === "/" ? "active" : ""}`}
+      >
+        Home
+      </a>
+      <a
         href="/gallery"
         class={`nav-link ${$page.url.pathname === "/gallery" ? "active" : ""}`}
         >Gallery</a

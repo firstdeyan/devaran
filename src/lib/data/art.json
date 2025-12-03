@@ -1,57 +1,182 @@
 [
   {
-    "id": "wpap-1",
-    "title": "WPAP Portrait",
+    "id": "1",
+    "title": "WPAP Olivia",
     "category": "wpap",
-    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764180664/yhbcw5zazbdt9luiquh5.png",
-    "description": "Bold geometric portrait in WPAP style"
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764785380/OliviaRodigoWPAP_vcngcp.png",
+    "description": "Bold geometric portrait in WPAP style",
+    "createdAt": "2025-12-03T23:55:00Z",
+    "isActive": true
   },
   {
-    "id": "lineart-1",
-    "title": "Minimal Line Portrait",
-    "category": "lineart",
-    "image": "https://picsum.photos/400/300?random=102",
-    "description": "Clean minimal line art portrait"
-  },
-  {
-    "id": "sketch-1",
-    "title": "Realistic Pencil Sketch",
+    "id": "3",
+    "title": "RPS Jennie",
     "category": "sketch",
-    "image": "https://picsum.photos/400/300?random=103",
-    "description": "Detailed pencil sketch with shading"
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764786996/jennieSkecth_ftzccd.png",
+    "description": "Detailed pencil sketch with shading",
+    "createdAt": "2025-12-03T23:55:00Z",
+    "isActive": true
   },
   {
-    "id": "gouache-1",
-    "title": "Soft Gouache Portrait",
+    "id": "4",
+    "title": "Soft Gouache Portrait Sydney",
     "category": "gouache",
-    "image": "https://picsum.photos/400/300?random=104",
-    "description": "Watercolor soft gouache portrait"
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764787800/SydneyWarhol_ps8cec.png",
+    "description": "Watercolor soft gouache portrait",
+    "createdAt": "2025-12-03T23:55:00Z",
+    "isActive": true
   },
   {
-    "id": "poster-1",
-    "title": "Showa Poster",
+    "id": "5",
+    "title": "Showa Poster Winter",
     "category": "poster",
-    "image": "https://picsum.photos/400/300?random=105",
-    "description": "Vintage Japanese poster style"
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764788662/japanseposterwinter_fzv7jt.png",
+    "description": "Vintage Japanese poster style",
+    "createdAt": "2025-12-03T23:55:00Z",
+    "isActive": true
   },
   {
-    "id": "warhol-1",
+    "id": "6",
     "title": "Warhol Color Blocks",
     "category": "warhol",
-    "image": "https://picsum.photos/400/300?random=106",
-    "description": "Pop art inspired by Warhol"
-  },{
-    "id": "warhol-1",
-    "title": "Warhol Color Blocks",
-    "category": "charcoal",
-    "image": "https://picsum.photos/400/300?random=106",
-    "description": "Pop art inspired by Warhol"
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764789975/fwarhol_bvsygo.png",
+    "description": "Pop art inspired by Warhol",
+    "createdAt": "2025-12-03T23:55:00Z",
+    "isActive": true
   },
   {
-    "id": "charcoal-1",
-    "title": "Charcoal Shade",
+    "id": "7",
+    "title": "Charcoal Shade Karina",
     "category": "charcoal",
-    "image": "https://picsum.photos/400/300?random=107",
-    "description": "Deep textured charcoal portrait"
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764790978/karinachar_t1qpmu.png",
+    "description": "Deep textured charcoal portrait",
+    "createdAt": "2025-12-03T23:55:00Z",
+    "isActive": true
+  },
+  {
+    "id": "071510eb-acdf-4525-889d-ccf236c7f983",
+    "title": "Y WPAP 1",
+    "category": "wpap",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212422/1764131645649_gfspwn.jpg",
+    "description": " ",
+    "createdAt": "2025-12-03T17:34:37.519Z",
+    "isActive": true
+  },
+  {
+    "id": "dd7f926f-fb5f-42d2-a351-a665d0bcf99d",
+    "title": "Y WPAP 2",
+    "category": "wpap",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132529483_1_ntr6uw.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T17:49:54.021Z",
+    "isActive": true
+  },
+  {
+    "id": "89fa0d89-6b68-40e0-bdc9-28674914b3f6",
+    "title": "Kendall Line Art",
+    "category": "lineart",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764786021/kendallineart_apwcxw.png",
+    "description": "",
+    "createdAt": "2025-12-03T18:21:18.790Z",
+    "isActive": true
+  },
+  {
+    "id": "6c1b4ecf-6e81-47a4-b287-64596015b59d",
+    "title": "Y line art 1",
+    "category": "lineart",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764214900/unnamed_2_lf4rlm.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:21:52.912Z",
+    "isActive": true
+  },
+  {
+    "id": "a167b312-51b5-476e-ad19-55dd81c0badf",
+    "title": "Y Sketch 1",
+    "category": "sketch",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132516987_1_rmkfyu.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:37:52.269Z",
+    "isActive": true
+  },
+  {
+    "id": "cf24e375-0ddc-41d7-bc8f-af59d02e5dc0",
+    "title": "Y Sketch 2",
+    "category": "sketch",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212423/1764132510893_1_ojvf5y.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:38:06.350Z",
+    "isActive": true
+  },
+  {
+    "id": "226dd867-2f93-4b09-b4e6-84ed817a6c5c",
+    "title": "Y WPAP 3",
+    "category": "wpap",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132536860_1_yybwov.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:39:13.797Z",
+    "isActive": true
+  },
+  {
+    "id": "22c775d3-02f5-4d14-99be-d375c7060907",
+    "title": "Y Soft 1",
+    "category": "gouache",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212425/1764132782897_1_l6shxi.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:54:27.486Z",
+    "isActive": true
+  },
+  {
+    "id": "0ff4fc05-0fb6-41de-9700-8f3645c74567",
+    "title": "Y Soft 2",
+    "category": "gouache",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132726528_1_rdar0w.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:55:24.879Z",
+    "isActive": true
+  },
+  {
+    "id": "d94deb69-99d3-498a-b22e-1b02d3412968",
+    "title": "Y SOft 3",
+    "category": "gouache",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212424/1764132652877_1_zhd7hz.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T18:56:08.485Z",
+    "isActive": true
+  },
+  {
+    "id": "6b19f77a-5283-466c-8553-175285faab06",
+    "title": "Poster Y 1",
+    "category": "poster",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764788662/ja_anse_potsery_lz9xjz.png",
+    "description": "",
+    "createdAt": "2025-12-03T19:05:38.582Z",
+    "isActive": true
+  },
+  {
+    "id": "96bdec60-da39-48ec-a91f-6d1a9300c391",
+    "title": "y warhol 1",
+    "category": "warhol",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764789976/ywarhol1_ybsmfe.png",
+    "description": "",
+    "createdAt": "2025-12-03T19:29:47.131Z",
+    "isActive": true
+  },
+  {
+    "id": "eb8fe646-9ba3-42b5-89c5-c1edc0c2c958",
+    "title": "y warhol 2",
+    "category": "warhol",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764789975/ywarhol2_l3l3xz.png",
+    "description": "",
+    "createdAt": "2025-12-03T19:29:56.506Z",
+    "isActive": true
+  },
+  {
+    "id": "5b061b28-974a-4c53-8fcf-417ab7f2c935",
+    "title": "Y charcoal 1",
+    "category": "charcoal",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212431/1764133084541_1_gu7liv.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T19:44:24.178Z",
+    "isActive": true
   }
 ]
