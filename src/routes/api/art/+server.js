@@ -1,21 +1,24 @@
 import { json } from '@sveltejs/kit';
+import fs from 'fs/promises';
+import path from 'path';
 import crypto from 'crypto';
-import { ART_SECRET } from '$env/static/private';
-import { createClient } from '@netlify/blobs';
+import { ART_SECRET } from '$env/static/private'; // ambil dari .env
 
-const client = createClient();
-const bucket = client.bucket('artworks'); // nama bucket bebas
+const DATA_FILE = path.resolve('src/lib/data/art.json');
 
-/** Utility: baca data JSON dari Blobs */
-async function readData() {
-  const data = await bucket.get('art.json');
-  if (!data) return [];
-  return JSON.parse(await data.text());
+/** Utility: baca file JSON */
+async function readFile(file) {
+  try {
+    const raw = await fs.readFile(file, 'utf-8');
+    return JSON.parse(raw || '[]');
+  } catch {
+    return [];
+  }
 }
 
-/** Utility: tulis data JSON ke Blobs */
-async function writeData(data) {
-  await bucket.setJSON('art.json', data);
+/** Utility: tulis file JSON */
+async function writeFile(file, data) {
+  await fs.writeFile(file, JSON.stringify(data, null, 2), 'utf-8');
 }
 
 /** Utility: cek autentikasi sederhana via header token */
@@ -27,7 +30,7 @@ function checkAuth(request) {
 /** GET /api/art */
 export async function GET({ request }) {
   if (!checkAuth(request)) return json({ error: 'Unauthorized' }, { status: 401 });
-  const data = await readData();
+  const data = await readFile(DATA_FILE);
   return json(data);
 }
 
@@ -35,7 +38,7 @@ export async function GET({ request }) {
 export async function POST({ request }) {
   if (!checkAuth(request)) return json({ error: 'Unauthorized' }, { status: 401 });
   const body = await request.json();
-  const data = await readData();
+  const data = await readFile(DATA_FILE);
 
   const newArt = {
     id: crypto.randomUUID(),
@@ -48,7 +51,7 @@ export async function POST({ request }) {
   };
 
   data.push(newArt);
-  await writeData(data);
+  await writeFile(DATA_FILE, data);
 
   return json({ ok: true, message: 'Artwork added', item: newArt });
 }
@@ -57,13 +60,13 @@ export async function POST({ request }) {
 export async function PUT({ request }) {
   if (!checkAuth(request)) return json({ error: 'Unauthorized' }, { status: 401 });
   const body = await request.json();
-  const data = await readData();
+  const data = await readFile(DATA_FILE);
 
   const idx = data.findIndex(a => a.id === body.id);
   if (idx === -1) return json({ error: 'Not found' }, { status: 404 });
 
   data[idx] = { ...data[idx], ...body };
-  await writeData(data);
+  await writeFile(DATA_FILE, data);
 
   return json({ ok: true, message: 'Artwork updated', item: data[idx] });
 }
@@ -72,10 +75,10 @@ export async function PUT({ request }) {
 export async function DELETE({ request }) {
   if (!checkAuth(request)) return json({ error: 'Unauthorized' }, { status: 401 });
   const body = await request.json();
-  const data = await readData();
+  const data = await readFile(DATA_FILE);
 
   const filtered = data.filter(a => a.id !== body.id);
-  await writeData(filtered);
+  await writeFile(DATA_FILE, filtered);
 
   return json({ ok: true, message: 'Artwork deleted' });
 }

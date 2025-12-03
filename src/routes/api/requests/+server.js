@@ -59,29 +59,29 @@ async function uploadToCloudinary(fileBuffer, filename) {
 }
 
 /** Kirim email notifikasi */
-async function sendEmail(req) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: GMAIL_USER,
-      pass: GMAIL_APP_PASSWORD
-    }
-  });
+// async function sendEmail(req) {
+//   const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//       user: GMAIL_USER,
+//       pass: GMAIL_APP_PASSWORD
+//     }
+//   });
 
-  const mailOptions = {
-    from: GMAIL_USER,
-    to: GMAIL_RECEIVER,
-    subject: 'New Art Request Received',
-    text: `Request data:\n${JSON.stringify(req, null, 2)}`
-  };
+//   const mailOptions = {
+//     from: GMAIL_USER,
+//     to: GMAIL_RECEIVER,
+//     subject: 'New Art Request Received',
+//     text: `Request data:\n${JSON.stringify(req, null, 2)}`
+//   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`✅ Email sent to ${GMAIL_RECEIVER}`);
-  } catch (error) {
-    console.error('❌ Email error:', error.response?.body || error.message);
-  }
-}
+//   try {
+//     await transporter.sendMail(mailOptions);
+//     console.log(`✅ Email sent to ${GMAIL_RECEIVER}`);
+//   } catch (error) {
+//     console.error('❌ Email error:', error.response?.body || error.message);
+//   }
+// }
 
 /** GET /api/request */
 export async function GET() {
@@ -132,7 +132,7 @@ export async function POST({ request }) {
 
   requests.push(req);
   await writeRequests(requests);
-  await sendEmail(req);
+  //await sendEmail(req);
 
   return json({ ok: true, id, message: 'Request received. We’ll follow up soon.' });
 }
