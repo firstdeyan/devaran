@@ -178,5 +178,14 @@
     "description": "",
     "createdAt": "2025-12-03T19:44:24.178Z",
     "isActive": true
+  },
+  {
+    "id": "b4046b4f-2c6f-47a1-b73c-16bc24c93486",
+    "title": "sketch y 3",
+    "category": "sketch",
+    "image": "https://res.cloudinary.com/dpf35uhgs/image/upload/v1764212428/1764132505175_1_uqoqly.jpg",
+    "description": "",
+    "createdAt": "2025-12-03T21:00:40.094Z",
+    "isActive": true
   }
 ]
