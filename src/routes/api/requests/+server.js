@@ -1,33 +1,34 @@
 import { json } from '@sveltejs/kit';
+import fs from 'fs/promises';
+import path from 'path';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
-import { createClient } from '@netlify/blobs';
 
 // ambil env dari SvelteKit
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
-  GMAIL_USER,
-  GMAIL_APP_PASSWORD,
-  GMAIL_RECEIVER
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+  GMAIL_USER, GMAIL_APP_PASSWORD, GMAIL_RECEIVER
 } from '$env/static/private';
 
-const client = createClient();
-const bucket = client.bucket('requests'); // bucket khusus untuk requests
+const DATA_FILE = path.resolve('src/lib/data/requests.json');
 
-/** Utility: baca data request dari Blobs */
 async function readRequests() {
-  const data = await bucket.get('requests.json');
-  if (!data) return [];
-  return JSON.parse(await data.text());
+  try {
+    const raw = await fs.readFile(DATA_FILE, 'utf-8');
+    return JSON.parse(raw || '[]');
+  } catch {
+    return [];
+  }
 }
 
-/** Utility: tulis data request ke Blobs */
-async function writeRequests(requests) {
-  await bucket.setJSON('requests.json', requests);
-}
+// async function writeRequests(requests) {
+//   await fs.writeFile(DATA_FILE, JSON.stringify(requests, null, 2), 'utf-8');
+// }
 
 /** Upload ke Cloudinary */
 async function uploadToCloudinary(fileBuffer, filename) {
@@ -55,41 +56,40 @@ async function uploadToCloudinary(fileBuffer, filename) {
   }
 
   const data = await res.json();
+  console.log('Cloudinary response:', data);
+
   return data.secure_url || data.url || null;
 }
 
-/** Kirim email notifikasi */
-// async function sendEmail(req) {
-//   const transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: GMAIL_USER,
-//       pass: GMAIL_APP_PASSWORD
-//     }
-//   });
+async function sendEmail(req) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: GMAIL_USER,
+      pass: GMAIL_APP_PASSWORD
+    }
+  });
 
-//   const mailOptions = {
-//     from: GMAIL_USER,
-//     to: GMAIL_RECEIVER,
-//     subject: 'New Art Request Received',
-//     text: `Request data:\n${JSON.stringify(req, null, 2)}`
-//   };
+  const mailOptions = {
+    from: GMAIL_USER,
+    to: GMAIL_RECEIVER,
+    subject: 'New Art Request Received',
+    text: `Request data:\n${JSON.stringify(req, null, 2)}`
+  };
 
-//   try {
-//     await transporter.sendMail(mailOptions);
-//     console.log(`✅ Email sent to ${GMAIL_RECEIVER}`);
-//   } catch (error) {
-//     console.error('❌ Email error:', error.response?.body || error.message);
-//   }
-// }
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`✅ Email sent to ${GMAIL_RECEIVER}`);
+  } catch (error) {
+    console.error('❌ Email error:', error.response?.body || error.message);
+  }
+}
 
-/** GET /api/request */
 export async function GET() {
   const requests = await readRequests();
   return json({ requests });
 }
 
-/** POST /api/request */
 export async function POST({ request }) {
   const contentType = request.headers.get('content-type') || '';
   if (!contentType.includes('multipart/form-data')) {
@@ -131,8 +131,8 @@ export async function POST({ request }) {
   };
 
   requests.push(req);
-  await writeRequests(requests);
-  //await sendEmail(req);
+  //await writeRequests(requests);
+  await sendEmail(req);
 
   return json({ ok: true, id, message: 'Request received. We’ll follow up soon.' });
 }
